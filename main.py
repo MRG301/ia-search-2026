@@ -91,10 +91,6 @@ def main():
     print("Costo:", problema.getCostOfActions(sol_ucs))
     print()
 
-    print("A* con heurística nula (equivale a UCS):")
-    print(sol_astar)
-    print("Costo:", problema.getCostOfActions(sol_astar))
-    print()
 
     # Si quieres ver DFS también (ojo: puede dar rutas largas dependiendo del orden de sucesores)
     sol_dfs = dfs(problema)
@@ -109,8 +105,3 @@ if __name__ == "__main__":
 
 
 
-
-
-
-if __name__ == "__main__":
-    main()
