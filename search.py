@@ -222,6 +222,41 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
     return []
 
+def bestFirstSearch(problem, heuristic=nullHeuristic):
+    """
+    Primero el Mejor o Best First Search: tambien usa PriorityQueue, pero con f(n) = h(n)
+    La busqueda se guia, con que tan cerca parece estar de la meta
+    """
+    frontera = util.PriorityQueue()
+    visitados = set()
+
+    inicio = problem.getStartState()
+    if problem.isGoalState(inicio):
+        return []
+
+    # En primero el mejor, f(n) es puramente la heuristica h(n), sin el costo acumulado
+    f0 = heuristic(inicio, problem)
+    # en la tupla se quito 'g' ya que no es necesario
+    frontera.push((inicio, []), f0)
+
+    while not frontera.isEmpty():
+        estado, camino = frontera.pop()
+
+        # se modifico el control de visitados mas simple
+        if estado in visitados:
+            continue
+        visitados.add(estado)
+
+        if problem.isGoalState(estado):
+            return camino
+
+        for sucesor, accion, step_cost in problem.getSuccessors(estado):
+            if sucesor not in visitados:
+                # la heuristica del sucesor, sin nuevo_g
+                nuevo_f = heuristic(sucesor, problem)
+                frontera.push((sucesor, camino + [accion]), nuevo_f)
+
+    return []
 
 ########################################################IDDFS
 
